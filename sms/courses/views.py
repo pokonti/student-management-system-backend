@@ -4,13 +4,16 @@ from .models import Course, Lesson
 from .serializers import CourseSerializer, LessonSerializer
 from users.serializers import StudentSerializer
 from users.models import Student
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 class CourseListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
 class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAdminUser]
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 

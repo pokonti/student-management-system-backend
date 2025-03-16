@@ -1,9 +1,9 @@
 from django.db import models
-
-from courses.models import Course
+from django.contrib.auth.models import User
 
 
 class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=30) 
     last_name = models.CharField(max_length=30) 
     phone = models.CharField(max_length=15, blank=True)

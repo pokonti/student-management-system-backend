@@ -5,6 +5,7 @@ from .serializers import StudentSerializer, TeacherSerializer, AddCourseSerializ
 from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 class StudentListCreateView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
@@ -36,6 +37,7 @@ class TeacherDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TeacherSerializer
 
 class AddCourseToStudentView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = AddCourseSerializer  # Include serializer_class
 
     def update(self, request, *args, **kwargs):
@@ -57,6 +59,7 @@ class AddCourseToStudentView(generics.UpdateAPIView):
 
 
 class RemoveCourseFromStudentView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = RemoveCourseSerializer  # Include serializer_class
 
     def update(self, request, *args, **kwargs):
